@@ -1,0 +1,18 @@
+{
+  "name": "default",
+  "type": "postgres",
+  "host": "localhost",
+  "port": "5432",
+  "username": "postgres",
+  "password": "docker",
+  "database": "postgres",
+  "entities": [
+    "./src/datasource/typeorm/entity/*.ts"
+  ],
+  "migrations": [
+    "./src/datasource/typeorm/migration/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "./src/datasource/typeorm/migration/"
+  }
+}

@@ -6,8 +6,11 @@
   "username": "postgres",
   "password": "docker",
   "database": "postgres",
+  "logging": [
+    "query"
+  ],
   "entities": [
-    "./src/datasource/typeorm/entity/*.ts"
+    "./src/datasource/typeorm/entities/*.ts"
   ],
   "migrations": [
     "./src/datasource/typeorm/migration/*.ts"

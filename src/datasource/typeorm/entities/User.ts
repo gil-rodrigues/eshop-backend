@@ -6,6 +6,8 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 
+import { Exclude } from 'class-transformer';
+
 @Entity('user')
 class User {
   @PrimaryGeneratedColumn('uuid')
@@ -14,17 +16,18 @@ class User {
   @Column()
   name: string;
 
+  @Exclude()
   @Column()
   password: string;
-
-  @Column()
-  salt: string;
 
   @Column()
   email: string;
 
   @Column()
   cellphone_number: string;
+
+  @Column()
+  inactive: boolean;
 
   @CreateDateColumn()
   date_created: Date;

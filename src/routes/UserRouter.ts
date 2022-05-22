@@ -8,7 +8,7 @@ import CheckAuthentication from 'middlewares/CheckAuthentication';
 const userRouter = Router();
 const userController = new UserController();
 
-userRouter.get('/', userController.show);
+userRouter.get('/', CheckAuthentication, userController.show);
 
 userRouter.post(
   '/',
@@ -56,6 +56,7 @@ userRouter.put(
 
 userRouter.delete(
   '/:id',
+  CheckAuthentication,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().guid().required()

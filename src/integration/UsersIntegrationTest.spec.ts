@@ -13,7 +13,7 @@ describe('user', () => {
   });
 
   it('user/get', async () => {
-    const res = await IntegrationWebInvoker.get<User[]>('/user');
+    const res = await httpInvokerWithAuthentication.get<User[]>('/user');
 
     expect(res.data).toBeInstanceOf(Array);
     if (res.data.length > 0) expect(res.data[0].id !== undefined).toBe(true);
@@ -64,9 +64,9 @@ describe('user', () => {
   });
 
   it('user/delete', async () => {
-    const userIdToDelete = 'e1c2eda9-6b6b-43f0-a28b-1ba12a1115d6';
+    const userIdToDelete = 'b75130a4-7204-4b4f-9960-28a8c7fa5c6c';
 
-    const res = await IntegrationWebInvoker.delete<User>(
+    const res = await httpInvokerWithAuthentication.delete<User>(
       `/user/${userIdToDelete}`
     );
 

@@ -14,10 +14,18 @@ class UserRepository implements IUserRepository {
 
   public async getAll(includeInactive?: boolean): Promise<User[]> {
     const users = await this.ormRepository.find({
-      where: { inactive: !!includeInactive }
+      where: [{ inactive: false }, { inactive: !!includeInactive }]
     });
 
     return users;
+  }
+
+  public async getById(guid: string): Promise<User | undefined> {
+    const user = await this.ormRepository.findOne({
+      where: { id: guid, inactive: false }
+    });
+
+    return user;
   }
 
   public async getByEmail(email: string): Promise<User | undefined> {

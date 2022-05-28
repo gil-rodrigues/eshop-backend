@@ -3,10 +3,13 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  OneToMany,
+  JoinColumn
 } from 'typeorm';
 
 import { Exclude } from 'class-transformer';
+import UserAddress from './UserAddress';
 
 @Entity('user')
 class User {
@@ -15,6 +18,9 @@ class User {
 
   @Column()
   name: string;
+
+  @OneToMany(() => UserAddress, userAddress => userAddress.id_user)
+  userAddresses: UserAddress[];
 
   @Exclude()
   @Column()

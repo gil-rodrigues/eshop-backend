@@ -3,7 +3,7 @@ import IUserRepository from 'repositories/IUserRepository';
 import User from 'datasource/typeorm/entities/User';
 import AppError from 'models/AppError';
 import IHashProvider from 'providers/IHashProvider';
-import IUpdateUserDto from 'models/User/IUpdateUserDto';
+import IUpdateUserRequestDto from 'models/User/IUpdateUserDto';
 
 import { instanceToInstance } from 'class-transformer';
 
@@ -48,7 +48,7 @@ class UserServices {
     return instanceToInstance(user);
   }
 
-  public async updateUser(data: IUpdateUserDto): Promise<User> {
+  public async updateUser(data: IUpdateUserRequestDto): Promise<User> {
     // todo - insert validations
 
     const user = await this.userRepository.update(data);

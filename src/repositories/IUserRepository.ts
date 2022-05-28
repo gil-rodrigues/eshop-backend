@@ -5,6 +5,8 @@ import IUpdateUserDto from 'models/User/IUpdateUserDto';
 interface IUserRepository {
   getAll(includeInactive?: boolean): Promise<User[]>;
 
+  getById(guid: string): Promise<User | undefined>;
+
   getByEmail(email: string): Promise<User | undefined>;
 
   create(data: ICreateUserDto): Promise<User>;

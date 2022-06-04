@@ -47,10 +47,7 @@ class UserController {
 
     const userService = container.resolve(UserServices);
 
-    const inactivatedWithSuccess = await userService.inactivateUser(id);
-
-    if (!inactivatedWithSuccess)
-      throw new AppError('Could not inactivate user');
+    await userService.inactivateUser(id);
 
     return res.status(204).json();
   }

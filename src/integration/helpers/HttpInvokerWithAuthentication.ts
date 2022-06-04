@@ -13,10 +13,9 @@ class HttpInvokerWithAuthentication {
     // call authentication method
     const invokerResponse =
       await this.webInvoker.post<IAuthenticationResponseDto>('/authenticate', {
-        email: 'gil.rodrigues@ozono.pt',
-        password: 'abcdef'
+        email: process.env.TEST_USER_NAME,
+        password: process.env.TEST_USER_PASSWORD
       });
-
     const { token } = invokerResponse.data;
 
     this.webInvoker.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -33,8 +32,8 @@ class HttpInvokerWithAuthentication {
     // call authentication method
     const invokerResponse =
       await this.webInvoker.post<IAuthenticationResponseDto>('/authenticate', {
-        email: 'gil.rodrigues@ozono.pt',
-        password: 'abcdef'
+        email: process.env.TEST_USER_NAME,
+        password: process.env.TEST_USER_PASSWORD
       });
 
     const { token } = invokerResponse.data;
@@ -69,8 +68,8 @@ class HttpInvokerWithAuthentication {
     // call authentication method
     const invokerResponse =
       await this.webInvoker.post<IAuthenticationResponseDto>('/authenticate', {
-        email: 'gil.rodrigues@ozono.pt',
-        password: 'abcdef'
+        email: process.env.TEST_USER_NAME,
+        password: process.env.TEST_USER_PASSWORD
       });
 
     const { token } = invokerResponse.data;

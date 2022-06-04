@@ -16,6 +16,7 @@ describe('user', () => {
     const res = await httpInvokerWithAuthentication.get<User[]>('/user');
 
     expect(res.data).toBeInstanceOf(Array);
+
     if (res.data.length > 0) expect(res.data[0].id !== undefined).toBe(true);
   });
 

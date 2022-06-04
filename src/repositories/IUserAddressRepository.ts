@@ -1,14 +1,22 @@
 import UserAddress from 'datasource/typeorm/entities/UserAddress';
-import IGetUserAddressesDto from 'models/UserAddress/IGetUserAddressesDto';
 import ICreateUserAddressDto from 'models/UserAddress/ICreateUserAddressDto';
+import IUpdateUserAddressDto from 'models/UserAddress/IUpdateUserAddressDto';
 // import IUpdateUserDto from 'models/User/IUpdateUserDto';
 
 interface IUserRepository {
-  getAllByUserId(data: IGetUserAddressesDto): Promise<UserAddress[]>;
+  getById(
+    id_address: string,
+    includeInactive?: boolean
+  ): Promise<UserAddress | undefined>;
+
+  getAllByUserId(
+    id_user: string,
+    includeInactive?: boolean
+  ): Promise<UserAddress[]>;
 
   create(data: ICreateUserAddressDto): Promise<UserAddress>;
 
-  // update(data: any): Promise<User>;
+  update(data: IUpdateUserAddressDto): Promise<UserAddress>;
 }
 
 export default IUserRepository;

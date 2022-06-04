@@ -11,7 +11,7 @@ const userAddressController = new UserAddressController();
 userAddressRouter.get(
   '/:id_user',
   CheckAuthentication,
-  userAddressController.show
+  userAddressController.index
 );
 
 userAddressRouter.post(
@@ -36,41 +36,37 @@ userAddressRouter.post(
   userAddressController.create
 );
 
-// userAddressRouter.put(
-//   '/:id',
-//   CheckAuthentication,
-//   // celebrate(
-//   //   {
-//   //     [Segments.PARAMS]: {
-//   //       id: Joi.string().guid().required()
-//   //     },
-//   //     [Segments.BODY]: Joi.object({
-//   //       name: Joi.string(),
-//   //       cellphone_number: Joi.string(),
-//   //       email: Joi.forbidden().label(
-//   //         'This route cannot be used to change email!'
-//   //       ),
-//   //       password: Joi.forbidden().label(
-//   //         'This route cannot be used to change password!'
-//   //       )
-//   //     }).min(1)
-//   //   },
-//   //   {
-//   //     abortEarly: false
-//   //   }
-//   // ),
-//   userAddressController.update
-// );
+userAddressRouter.put(
+  '/:id_address',
+  CheckAuthentication,
+  celebrate(
+    {
+      [Segments.BODY]: {
+        name: Joi.string(),
+        address: Joi.string(),
+        local: Joi.string(),
+        postal_code: Joi.string(),
+        region: Joi.string(),
+        // Todo - improve country
+        country: Joi.string()
+      }
+    },
+    {
+      abortEarly: false
+    }
+  ),
+  userAddressController.update
+);
 
-// userAddressRouter.delete(
-//   '/:id',
-//   CheckAuthentication,
-//   // celebrate({
-//   //   [Segments.PARAMS]: {
-//   //     id: Joi.string().guid().required()
-//   //   }
-//   // }),
-//   userAddressController.inactivate
-// );
+userAddressRouter.delete(
+  '/:id',
+  CheckAuthentication,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().guid().required()
+    }
+  }),
+  userAddressController.inactivate
+);
 
 export default userAddressRouter;

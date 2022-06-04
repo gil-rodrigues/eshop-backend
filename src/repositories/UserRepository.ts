@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository, FindManyOptions } from 'typeorm';
 import User from 'datasource/typeorm/entities/User';
 
 import ICreateUserDto from 'models/User/ICreateUserDto';
@@ -13,9 +13,18 @@ class UserRepository implements IUserRepository {
   }
 
   public async getAll(includeInactive?: boolean): Promise<User[]> {
-    const users = await this.ormRepository.find({
-      where: [{ inactive: false }, { inactive: !!includeInactive }]
-    });
+    const findManyOptions = {
+      where: {
+        inactive: false
+      },
+      loadEagerRelations: false
+    } as FindManyOptions<User>;
+
+    if (includeInactive) {
+      delete findManyOptions.where;
+    }
+
+    const users = await this.ormRepository.find(findManyOptions);
 
     return users;
   }

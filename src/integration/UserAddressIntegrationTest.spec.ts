@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import UserAddress from '../datasource/typeorm/entities/UserAddress';
 import User from '../datasource/typeorm/entities/User';
 import { IntegrationWebInvoker } from './helpers/IntegrationWebInvoker';
@@ -29,7 +30,7 @@ describe('user-address', () => {
 
     const userAddress = new UserAddress();
 
-    userAddress.name = 'Casa de Lisboa';
+    userAddress.name = 'Casa de Lisboa2';
     userAddress.address = 'Largo Antonio Aleixo, no 9, 3 esq';
     userAddress.postal_code = '2675-227';
     userAddress.local = 'Odivelas';
@@ -44,44 +45,39 @@ describe('user-address', () => {
     expect(res.data).toHaveProperty('id');
   });
 
-  // it('user/put', async () => {
-  //   const userToUpdate = new User();
+  it('user-address/put', async () => {
+    const userAddressToUpdate = '2447b0c2-ad36-4ab2-b0cf-0304b3cc440f';
 
-  //   // Can be changed
-  //   const userId = 'e1c2eda9-6b6b-43f0-a28b-1ba12a1115d6';
-  //   const userName = 'Michelle Macedo2';
-  //   const cellPhoneNumber = '913729784';
+    const userAddress = new UserAddress();
 
-  //   userToUpdate.name = userName;
-  //   userToUpdate.cellphone_number = cellPhoneNumber;
+    userAddress.name = 'Casa de Lisboa3';
+    userAddress.address = 'Largo Antonio Aleixo, no 9, 3 esq';
+    userAddress.postal_code = '2675-228';
+    userAddress.local = 'Odivelas';
+    userAddress.region = 'Lisboa';
+    userAddress.country = 'Portugal';
 
-  //   try {
-  //     const res = await httpInvokerWithAuthentication.put<User>(
-  //       `/user/${userId}`,
-  //       userToUpdate
-  //     );
+    try {
+      const res = await httpInvokerWithAuthentication.put<UserAddress>(
+        `/user-address/${userAddressToUpdate}`,
+        userAddress
+      );
 
-  //     expect(res.data).toHaveProperty('id');
-  //     expect(res.data.name).toEqual(userName);
-  //     expect(res.data.cellphone_number).toEqual(cellPhoneNumber);
-  //   } catch (ex) {
-  //     const err = ex as Error | AxiosError;
-  //     if (axios.isAxiosError(err)) {
-  //       // eslint-disable-next-line no-console
-  //       console.log(err.response?.data);
-  //     }
+      expect(res.data).toHaveProperty('id');
+    } catch (err) {
+      console.log(err);
 
-  //     expect(0).toEqual(1);
-  //   }
-  // });
+      throw err;
+    }
+  });
 
-  // it('user/delete', async () => {
-  //   const userIdToDelete = 'b75130a4-7204-4b4f-9960-28a8c7fa5c6c';
+  it('user-address/delete', async () => {
+    const userAddressIdToDelete = '2447b0c2-ad36-4ab2-b0cf-0304b3cc440f';
 
-  //   const res = await httpInvokerWithAuthentication.delete<User>(
-  //     `/user/${userIdToDelete}`
-  //   );
+    const res = await httpInvokerWithAuthentication.delete<User>(
+      `/user-address/${userAddressIdToDelete}`
+    );
 
-  //   expect(res.status).toBe(204);
-  // });
+    expect(res.status).toBe(204);
+  });
 });

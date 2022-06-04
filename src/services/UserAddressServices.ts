@@ -1,12 +1,14 @@
 import { injectable, inject } from 'tsyringe';
 import IUserRepository from 'repositories/IUserRepository';
 import AppError from 'models/AppError';
-import IHashProvider from 'providers/IHashProvider';
 
 import IUserAddressRepository from 'repositories/IUserAddressRepository';
 import ICreateUserAddressRequestDto from 'models/UserAddress/ICreateUserAddressRequestDto';
 import UserAddress from 'datasource/typeorm/entities/UserAddress';
 import IAddressTypeRepository from 'repositories/IAddressTypeRepository';
+import StringFormatUtils from 'helpers/StringFormatUtils';
+import IUpdateUserAddressRequestDto from 'models/UserAddress/IUpdateUserAddressRequestDto';
+import IUpdateUserAddressDto from 'models/UserAddress/IUpdateUserAddressDto';
 
 @injectable()
 class UserAddressServices {
@@ -48,9 +50,20 @@ class UserAddressServices {
       );
     }
 
+    const trimmedName = StringFormatUtils.TrimExtraSpaces(name);
+
+    const userAddressesInStore =
+      await this.userAddressRepository.getAllByUserId(id_user);
+
+    if (
+      userAddressesInStore.findIndex(addr => addr.name === trimmedName) !== -1
+    ) {
+      throw new AppError('Address name matches existing name!', 400);
+    }
+
     const userAddress = await this.userAddressRepository.create({
       user,
-      name,
+      name: trimmedName,
       address,
       local,
       postal_code,
@@ -60,6 +73,42 @@ class UserAddressServices {
     });
 
     return userAddress;
+  }
+
+  public async updateUserAddress(
+    data: IUpdateUserAddressRequestDto
+  ): Promise<UserAddress> {
+    const userAddressesInStore =
+      await this.userAddressRepository.getAllByUserId(data.id_user);
+
+    if (userAddressesInStore.findIndex(addr => addr.id === data.id) === -1)
+      throw new AppError('Address to be updated does not exist', 400);
+
+    let trimmedName: string | undefined;
+
+    // If the user wants to update name, don't allow creating one with duplicate name.
+    if (data.name) {
+      trimmedName = StringFormatUtils.TrimExtraSpaces(data.name);
+
+      if (
+        userAddressesInStore.findIndex(
+          addr => addr.name === trimmedName && addr.id !== data.id
+        ) !== -1
+      ) {
+        throw new AppError('Address name matches existing name!', 400);
+      }
+    }
+
+    const userAddressDataToUpdate = {
+      name: trimmedName,
+      ...data
+    } as IUpdateUserAddressDto;
+
+    const updatedUserAddress = await this.userAddressRepository.update(
+      userAddressDataToUpdate
+    );
+
+    return updatedUserAddress;
   }
 }
 

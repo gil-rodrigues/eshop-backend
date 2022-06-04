@@ -56,15 +56,17 @@ class UserServices {
     return instanceToInstance(user);
   }
 
-  public async inactivateUser(userGuid: string): Promise<boolean> {
+  public async inactivateUser(userGuid: string): Promise<void> {
     // todo - insert validations
 
-    const inactivatedWithSuccess = await this.userRepository.update({
-      id: userGuid,
-      inactive: true
-    });
-
-    return !!inactivatedWithSuccess;
+    try {
+      await this.userRepository.update({
+        id: userGuid,
+        inactive: true
+      });
+    } catch {
+      throw new AppError('Could not inactivate user.', 400);
+    }
   }
 }
 

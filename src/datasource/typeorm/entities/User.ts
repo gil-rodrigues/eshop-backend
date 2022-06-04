@@ -5,7 +5,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  JoinColumn
+  JoinColumn,
+  ManyToOne
 } from 'typeorm';
 
 import { Exclude } from 'class-transformer';
@@ -19,7 +20,7 @@ class User {
   @Column()
   name: string;
 
-  @OneToMany(() => UserAddress, userAddress => userAddress.id_user)
+  @OneToMany(() => UserAddress, userAddress => userAddress.user)
   userAddresses: UserAddress[];
 
   @Exclude()

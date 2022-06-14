@@ -4,9 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
-  JoinColumn,
-  ManyToOne
+  OneToMany
 } from 'typeorm';
 
 import { Exclude } from 'class-transformer';

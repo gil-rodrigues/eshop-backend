@@ -5,7 +5,7 @@
   "port": "5432",
   "username": "postgres",
   "password": "docker",
-  "database": "postgres",
+  "database": "eshoppg",
   "logging": [
     "query"
   ],

@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import UserAddress from '../datasource/typeorm/entities/UserAddress';
 import User from '../datasource/typeorm/entities/User';
 import { IntegrationWebInvoker } from './helpers/IntegrationWebInvoker';
@@ -25,12 +24,12 @@ describe('user-address', () => {
   });
 
   it('user-address/post', async () => {
-    const addressTypeCode = 'BILLING';
-    const userId = '99ff8c2d-602c-4a20-a2d1-058b22ded4b6';
+    const addressTypeCode = 'SHIPPING';
+    const userId = 'b8926387-a136-48f2-867f-b918df1463bd';
 
     const userAddress = new UserAddress();
 
-    userAddress.name = 'Casa de Lisboa2';
+    userAddress.name = 'Casa de Lisboa';
     userAddress.address = 'Largo Antonio Aleixo, no 9, 3 esq';
     userAddress.postal_code = '2675-227';
     userAddress.local = 'Odivelas';

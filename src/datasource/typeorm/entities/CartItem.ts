@@ -5,7 +5,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinColumn
+  JoinColumn,
+  OneToOne
 } from 'typeorm';
 import Cart from './Cart';
 import Product from './Product';
@@ -36,7 +37,7 @@ class CartItem {
   @Column('uuid')
   id_stock_movement: string;
 
-  @ManyToOne(() => StockMovement)
+  @OneToOne(() => StockMovement, { cascade: true })
   @JoinColumn({ name: 'id_stock_movement' })
   stockMovement: StockMovement;
 

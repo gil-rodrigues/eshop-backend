@@ -20,6 +20,7 @@ class ProductDesignation {
   id_product: string;
 
   @ManyToOne(() => Product)
+  @JoinColumn({ name: 'id_product' })
   product: Product;
 
   @Column()

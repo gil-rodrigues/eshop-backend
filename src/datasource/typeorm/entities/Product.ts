@@ -20,7 +20,7 @@ class Product {
       eager: true
     }
   )
-  productDesignations: Product[];
+  productDesignations: ProductDesignation[];
 
   @Column('integer')
   price: number;

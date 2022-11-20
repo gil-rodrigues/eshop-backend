@@ -37,6 +37,10 @@ class Cart {
   @Column('timestamp with time zone')
   date_purchased: Date;
 
+  // redundant with date_purchase, to improve performance
+  @Column()
+  purchased: boolean;
+
   @Column()
   deleted: boolean;
 

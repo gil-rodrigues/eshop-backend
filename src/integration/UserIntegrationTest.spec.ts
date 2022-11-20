@@ -23,10 +23,10 @@ describe('user', () => {
   it('user/post', async () => {
     const userToAdd = new User();
 
-    userToAdd.name = 'Michelle Macedo';
-    userToAdd.cellphone_number = '913729784';
-    userToAdd.email = 'michelleserralva3@gmail.com';
-    userToAdd.password = '123';
+    userToAdd.name = 'Gil Rodrigues';
+    userToAdd.cellphone_number = '961823800';
+    userToAdd.email = 'gil.rodrigues@ozono.pt';
+    userToAdd.password = 'password';
 
     const res = await IntegrationWebInvoker.post<User>('/user', userToAdd);
 

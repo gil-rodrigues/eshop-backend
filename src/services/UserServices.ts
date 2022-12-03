@@ -56,12 +56,12 @@ class UserServices {
     return instanceToInstance(user);
   }
 
-  public async inactivateUser(userGuid: string): Promise<void> {
+  public async inactivateUser(id_user: string): Promise<void> {
     // todo - insert validations
 
     try {
       await this.userRepository.update({
-        id: userGuid,
+        id: id_user,
         inactive: true
       });
     } catch {

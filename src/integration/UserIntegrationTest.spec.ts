@@ -37,7 +37,6 @@ describe('user', () => {
     const userToUpdate = new User();
 
     // Can be changed
-    const userId = 'e1c2eda9-6b6b-43f0-a28b-1ba12a1115d6';
     const userName = 'Michelle Macedo2';
     const cellPhoneNumber = '913729784';
 
@@ -46,7 +45,7 @@ describe('user', () => {
 
     try {
       const res = await httpInvokerWithAuthentication.put<User>(
-        `/user/${userId}`,
+        `/user/`,
         userToUpdate
       );
 
@@ -65,11 +64,7 @@ describe('user', () => {
   });
 
   it('user/delete', async () => {
-    const userIdToDelete = 'b75130a4-7204-4b4f-9960-28a8c7fa5c6c';
-
-    const res = await httpInvokerWithAuthentication.delete<User>(
-      `/user/${userIdToDelete}`
-    );
+    const res = await httpInvokerWithAuthentication.delete<User>(`/user/`);
 
     expect(res.status).toBe(204);
   });

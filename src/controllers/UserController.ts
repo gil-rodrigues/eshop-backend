@@ -32,10 +32,12 @@ class UserController {
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
+    const id_user = req.user.id;
+
     const userService = container.resolve(UserServices);
 
     const user = await userService.updateUser({
-      id: req.params.id,
+      id: id_user,
       ...req.body
     });
 
@@ -43,11 +45,11 @@ class UserController {
   }
 
   public async inactivate(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
+    const id_user = req.user.id;
 
     const userService = container.resolve(UserServices);
 
-    await userService.inactivateUser(id);
+    await userService.inactivateUser(id_user);
 
     return res.status(204).json();
   }

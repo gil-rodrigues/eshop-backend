@@ -15,7 +15,6 @@ cartRouter.post(
   celebrate(
     {
       [Segments.BODY]: {
-        id_user: Joi.string().guid().required(),
         id_user_address: Joi.string().guid()
       }
     },

@@ -1,4 +1,5 @@
 interface ICreateCartItemDto {
+  id_user: string;
   id_cart: string;
   id_product: string;
   quantity: number;

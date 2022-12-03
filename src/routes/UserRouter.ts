@@ -29,13 +29,10 @@ userRouter.post(
 );
 
 userRouter.put(
-  '/:id',
+  '/',
   CheckAuthentication,
   celebrate(
     {
-      [Segments.PARAMS]: {
-        id: Joi.string().guid().required()
-      },
       [Segments.BODY]: Joi.object({
         name: Joi.string(),
         cellphone_number: Joi.string(),
@@ -54,15 +51,6 @@ userRouter.put(
   userController.update
 );
 
-userRouter.delete(
-  '/:id',
-  CheckAuthentication,
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().guid().required()
-    }
-  }),
-  userController.inactivate
-);
+userRouter.delete('/', CheckAuthentication, userController.inactivate);
 
 export default userRouter;

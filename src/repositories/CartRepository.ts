@@ -11,15 +11,39 @@ class CartRepository implements ICartRepository {
     this.ormRepository = getRepository(Cart);
   }
 
-  // public async getByCode(
-  //   addressTypeCode: string
-  // ): Promise<AddressType | undefined> {
-  //   const addressType = await this.ormRepository.findOne({
-  //     where: { code: addressTypeCode }
-  //   });
+  public async getCartById(id_cart: string): Promise<Cart | undefined> {
+    const cart = await this.ormRepository.findOne({
+      where: {
+        id: id_cart
+      }
+    });
 
-  //   return addressType;
-  // }
+    return cart;
+  }
+
+  public async getNotPurchasedCartById(
+    id_cart: string
+  ): Promise<Cart | undefined> {
+    const cart = await this.ormRepository.findOne({
+      where: {
+        id: id_cart,
+        purchased: false
+      }
+    });
+
+    return cart;
+  }
+
+  public async getOpenCartByUser(id_user: string): Promise<Cart | undefined> {
+    const cart = await this.ormRepository.findOne({
+      where: {
+        id_user,
+        purchased: false
+      }
+    });
+
+    return cart;
+  }
 
   public async create(data: ICreateCartDto): Promise<Cart> {
     const cart = await this.ormRepository.create(data);
@@ -28,39 +52,6 @@ class CartRepository implements ICartRepository {
 
     return cart;
   }
-
-  // public async updateByCode(data: IUpdateAddressTypeDto): Promise<AddressType> {
-  //   if (!data.currentCode) {
-  //     throw new AppError('Cannot update AddressType without current code', 400);
-  //   }
-
-  //   const addressType = await this.ormRepository.findOne({
-  //     where: {
-  //       code: data.currentCode
-  //     }
-  //   });
-
-  //   if (!addressType)
-  //     throw new AppError(
-  //       'When trying to update, unable to find the given AddressType.',
-  //       400
-  //     );
-
-  //   const updatedAddressTypeData = {
-  //     ...data,
-  //     id: addressType.id,
-  //     code: data.currentCode
-  //   };
-
-  //   delete updatedAddressTypeData.currentCode;
-  //   delete updatedAddressTypeData.updatedCode;
-
-  //   const updatedAddressType = await this.ormRepository.save(
-  //     updatedAddressTypeData
-  //   );
-
-  //   return updatedAddressType;
-  // }
 }
 
 export default CartRepository;

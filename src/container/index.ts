@@ -17,6 +17,8 @@ import ILanguageRepository from 'repositories/ILanguageRepository';
 import LanguageRepository from 'repositories/LanguageRepository';
 import IProductDesignationRepository from 'repositories/IProductDesignationRepository';
 import ProductDesignationRepository from 'repositories/ProductDesignationRepository';
+import ICartItemRepository from 'repositories/ICartItemRepository';
+import CartItemRepository from 'repositories/CartItemRepository';
 
 container.registerSingleton<IHashProvider>('HashProvider', BCryptHashProvider);
 
@@ -32,6 +34,11 @@ container.registerSingleton<IAddressTypeRepository>(
 );
 
 container.registerSingleton<ICartRepository>('CartRepository', CartRepository);
+
+container.registerSingleton<ICartItemRepository>(
+  'CartItemRepository',
+  CartItemRepository
+);
 
 container.registerSingleton<IProductRepository>(
   'ProductRepository',

@@ -27,7 +27,13 @@ class CartItemController {
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {
-    return res.json({ message: 'OK' });
+    const { cartItemId } = req.params;
+
+    const cartItemService = container.resolve(CartItemServices);
+
+    await cartItemService.deleteCartItem(cartItemId);
+
+    return res.status(204).json();
   }
 }
 

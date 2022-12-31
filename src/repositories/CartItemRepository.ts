@@ -11,6 +11,12 @@ class CartItemRepository implements ICartItemRepository {
     this.ormRepository = getRepository(CartItem);
   }
 
+  public async getById(idCartItem: string): Promise<CartItem | undefined> {
+    const cartItem = this.ormRepository.findOne(idCartItem);
+
+    return cartItem;
+  }
+
   public async create(data: ICreateCartItemDto): Promise<CartItem> {
     const cartItem = this.ormRepository.create(data);
 
@@ -23,6 +29,10 @@ class CartItemRepository implements ICartItemRepository {
     const cartItem = await this.ormRepository.save(data);
 
     return cartItem;
+  }
+
+  public async delete(idCartItem: string) {
+    await this.ormRepository.delete(idCartItem);
   }
 }
 

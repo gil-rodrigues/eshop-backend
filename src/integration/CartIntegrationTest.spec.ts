@@ -38,4 +38,14 @@ describe('cart', () => {
 
     expect(res).toBeInstanceOf(Cart);
   });
+
+  it('cart/item/delete', async () => {
+    const cartItemId = '180c3ff3-bc65-440b-b36e-873cb92bb009';
+
+    const res = await httpInvokerWithAuthentication.delete<Cart>(
+      `/cart/item/${cartItemId}`
+    );
+
+    expect(res).toBeInstanceOf(Cart);
+  });
 });

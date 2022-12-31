@@ -20,7 +20,7 @@ class CartItemServices {
     private productRepository: IProductRepository
   ) {}
 
-  public async addIfNotInCart(
+  async addIfNotInCart(
     id_user: string,
     {
       id_cart,
@@ -56,7 +56,7 @@ class CartItemServices {
     return cart;
   }
 
-  public async updateIfAlreadyInCart({
+  async updateIfAlreadyInCart({
     newItemRequest,
     oldItem
   }: IInternalUpdateCartItemDto): Promise<Cart | undefined> {
@@ -102,6 +102,14 @@ class CartItemServices {
     }
 
     return this.addIfNotInCart(id_user, createCartItemRequestDto);
+  }
+
+  public async deleteCartItem(idCartItem: string) {
+    const cartItem = await this.cartItemRepository.getById(idCartItem);
+
+    if (!cartItem) throw new AppError('Cart item does not exist', 400);
+
+    await this.cartItemRepository.delete(idCartItem);
   }
 }
 
